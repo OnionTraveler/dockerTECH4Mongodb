@@ -1,0 +1,36 @@
+FROM ubuntu:18.04
+
+MAINTAINER oniontraveler <oniontraveler@gmail.com>
+
+WORKDIR /root
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# install openssh-server, wget, and git
+RUN apt-get clean all && apt-get update && apt-get install -y python3.6 ipython3 python3-pip iputils-ping openssh-server wget git vim curl
+RUN pip3 install numpy pandas jieba
+
+#========================= (for mongodb-linux-x86_64-ubuntu1804-4.0.10) =========================#
+#========================= (下載mongodb-linux-x86_64-ubuntu1804-4.0.10執行檔)
+RUN cd /tmp; wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1804-4.0.10.tgz && tar zxvf mongodb-linux-x86_64-ubuntu1804-4.0.10.tgz
+RUN cd /tmp && mkdir /usr/mongodb && mv mongodb-linux-x86_64-ubuntu1804-4.0.10 /usr/mongodb && ln -s /usr/mongodb/mongodb-linux-x86_64-ubuntu1804-4.0.10 /usr/mongodb/mongodb
+
+ENV PATH=/usr/mongodb/mongodb/bin/mongo:$PATH
+
+
+# install locales (語系檔案) (安裝中文讀取顯示)
+RUN apt-get install -y locales && locale-gen zh_CN && locale-gen zh_CN.utf8
+ENV LANG=zh_CN.UTF-8
+ENV LC_ALL=zh_CN.UTF-8
+ENV LANGUAGE=zh_CN.UTF-8
+
+# ssh without key
+RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
+    echo 'sudo docker inspect  --format "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" 「容器名稱或容器ID」'  >> containerIP.txt
+
+ENTRYPOINT ["/bin/bash", "-c", "service ssh start; /bin/bash"]
+
+CMD service ssh status && /bin/bash
+
+
