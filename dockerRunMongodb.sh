@@ -12,7 +12,7 @@
 
 #========================= (port explanation)
 # -p 「實體主機host」:「容器container」
-# -p 27018:27017  -> Mongodb
+# -p 27018:27017 -> Mongodb
 
 
 #========================= (docker commands for entering into the container(Zookeeper、Broker1、Broker2))
@@ -22,5 +22,4 @@
 #========================= (docker commands for remove all containers)
 # docker stop mongodb
 # docker rm mongodb
-
 
