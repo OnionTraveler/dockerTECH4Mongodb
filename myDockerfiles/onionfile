@@ -15,7 +15,7 @@ RUN pip3 install numpy pandas jieba
 RUN cd /tmp; wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1804-4.0.10.tgz && tar zxvf mongodb-linux-x86_64-ubuntu1804-4.0.10.tgz
 RUN cd /tmp && mkdir /usr/mongodb && mv mongodb-linux-x86_64-ubuntu1804-4.0.10 /usr/mongodb && ln -s /usr/mongodb/mongodb-linux-x86_64-ubuntu1804-4.0.10 /usr/mongodb/mongodb
 
-ENV PATH=/usr/mongodb/mongodb/bin/mongo:$PATH
+ENV PATH=/usr/mongodb/mongodb/bin:$PATH
 
 
 # install locales (語系檔案) (安裝中文讀取顯示)
