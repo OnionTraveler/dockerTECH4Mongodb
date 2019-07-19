@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#========================= (Zookeeper、Broker1、Broker2的IP位置) =========================#
+#========================= (mongodb的IP位置) =========================#
 ipmongodb=`docker inspect --format "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" mongodb`  # 172.19.0.2
 echo "ipmongodb is $ipmongodb" > /tmp/ipmongodb.txt && cat /tmp/ipmongodb.txt && rm -rf /tmp/ipmongodb.txt
 
