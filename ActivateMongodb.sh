@@ -10,7 +10,7 @@ docker exec -i mongodb /bin/bash << ONION
  [ -d /data/db ] && echo 'The directory 「/data/db」 has existed' || mkdir -p /data/db
 
 #========================= (更改mongodb的參數設定)
-cat >> /usr/mongodb/mongodb/bin/mongod.conf << onion
+cd /usr/mongodb/mongodb/bin/; [ -e mongod.conf ] && echo "The 「mongod.conf」 file has existed" || cat >> /usr/mongodb/mongodb/bin/mongod.conf << onion
 verbose = true
 dbpath = /data/db
 logpath = /var/log/mongodb.log
